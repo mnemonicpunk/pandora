@@ -24,29 +24,12 @@ var NGP = function(ac) {
 			this.pb = null;
 
 			this.setup = function() {
-				this.ssmall = new res.obj.button();
-				this.smedium = new res.obj.button();
-				this.slarge = new res.obj.button();
-				this.pb = new res.obj.playbutton();
-				this.ssmall.text = "Small";
-				this.smedium.text = "Medium";
-				this.slarge.text = "Large";
-				
+				this.pb = new res.obj.playbutton();				
 				this.sbar = new res.obj.seekbar();
-				
-				this.ssmall.onclick = function() {
-					app.setResolution(800, 480);
-				}
-				this.smedium.onclick = function() {
-					app.setResolution(1024, 600);
-				}
-				this.slarge.onclick = function() {
-					app.setResolution(1280, 720);
-				}
 			}
-			this.onResize = function(w, h) {
-				this.w = w;
-				this.h = h;
+			this.onResize = function(width, height) {
+				this.w = width;
+				this.h = height;
 			}		
 			this.update = function(scene) {
 				this._boundingbox.setSize(this.w, 48);
@@ -64,7 +47,7 @@ var NGP = function(ac) {
 						this.alpha = 255;
 						this.show_time++;
 					}
-					if (this.show_time > 40) {
+					if (this.show_time > 120) {
 						this.show = false;
 						this.show_time = 0;
 					}
@@ -78,12 +61,6 @@ var NGP = function(ac) {
 				this.y = 0;
 
 				// position the buttons
-				this.ssmall.x = this.w - 79 - 128;
-				this.ssmall.y = this.h - 32;
-				this.smedium.x = this.w - 74 - 64;
-				this.smedium.y = this.h - 32;
-				this.slarge.x = this.w - 69;
-				this.slarge.y = this.h - 32;
 				this.sbar.x = 0;
 				this.sbar.y = this.h - 48;
 				this.sbar.w = this.w;
@@ -91,18 +68,14 @@ var NGP = function(ac) {
 				this.pb.x = 5;
 				this.pb.y = this.h-32;
 				
-				this.ssmall.update(app);
-				this.smedium.update(app);
-				this.slarge.update(app);
 				this.sbar.update(app);
 				this.pb.update(app);
 			}
 			this.draw2D = function(g) {
-				var txt = ""; //"FPS: " + app.fps + " -  Resolution: " + this.w + "x" + this.h + " -  Mouse: " + app.Mouse.x + ", " + app.Mouse.y + " LMB: " + NGP.app.Mouse.mbleft + " RMB: " + NGP.app.Mouse.mbright + " MMB: " + NGP.app.Mouse.mbmiddle;
+				var txt = "";//FPS: " + app.fps + " -  Resolution: " + this.w + "x" + this.h + " -  Mouse: " + app.Mouse.x + ", " + app.Mouse.y + " LMB: " + NGP.app.Mouse.mbleft + " RMB: " + NGP.app.Mouse.mbright + " MMB: " + NGP.app.Mouse.mbmiddle;
 				var x = 0;
 				var y = this.h - 48;
 			
-				//g.drawImage(res.video.bbb, this.x, this.y);
 				g.drawImageScaled(res.video.bbb, this.x, this.y, this.w, this.h);
 				
 				// draw menu
@@ -113,18 +86,7 @@ var NGP = function(ac) {
 				g.setAlpha(this.alpha);
 				
 				this.sbar.draw2D(g);
-				
-				/*g.setColor(0,0,0);
-				g.drawTextOutline(txt, x+10, y+10);
-				g.setColor(255,255,255);
-				g.drawText(txt, x+10, y+10);*/
-				
-				this.pb.draw2D(g);
-				this.ssmall.draw2D(g);
-				this.smedium.draw2D(g);
-				this.slarge.draw2D(g);
-				
-				
+				this.pb.draw2D(g);				
 			}
 			this.setup();
 		});
@@ -186,7 +148,7 @@ var NGP = function(ac) {
 				//var percent = 25;
 				var pbw = this.w * this.percent;
 				
-				g.setColor(128,64,64);
+				g.setColor(64,64,128);
 				g.fillRect(this.x, this.y-8, pbw, 8);
 				g.setColor(128,128,128);
 				g.fillRect(this.x+pbw, this.y-8, this.w-pbw, 8);
@@ -219,6 +181,9 @@ var NGP = function(ac) {
 				this.add(c);
 				
 				res.video.bbb.get().play();
+				this.view = new Pandora.Views.DefaultView();
+				app.setView(this.view);
+
 			}
 		});
 	}

@@ -6,7 +6,7 @@
 			var app = null;
 
 			window.addEventListener('load', function() {
-				app = new NGP('app_canvas');
+				app = new NGP('content');
 				app.start();
 				app.setStart(new res.scene.start());			
 				
@@ -14,36 +14,28 @@
 								
 			}, false);		
 		</script>
+		<LINK href="../../lib/pandora.css" rel="stylesheet" type="text/css">
 		<style>
 			body {
 				margin: 0;
 				padding: 0;
 				font-family: cambria, arial;
-				background-color: #333333;
-			}
-			
-			#header {
-				padding: 14px;
-				font-size: 28px;
-				line-height: 28px;
-				background-color: #DDDDDD;
-				box-shadow: 0px 5px 5px #000000;
+				background-color: #000000;
 			}
 			
 			#content {
-				padding: 14px;
+				//padding: 14px;
 				margin: auto;
-				
+				width: 100%;
+				//height: 100%;
+				background-color: #FF0000;				
 			}
+
+
 		</style>
 	</head>
 	<body>
-		<div id="header">
-			<i>Pandora Minimal Demo</i>
-		</div>
 		<div id="content">
-			<canvas id="app_canvas" width="800" height="480" style="margin: auto; background-color: #000000">
-			</canvas>
 		</div>
 	</body>
 </html>
